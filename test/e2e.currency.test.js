@@ -1,40 +1,25 @@
+import App from '../page_objects/App'
+import LoginPage from '../page_objects/pages/LoginPage'
+import PaybillsPage from '../page_objects/pages/PaybillsPage'
+import NavBar from '../page_objects/components/Navbar'
+import LoggedInNavbar from '../page_objects/components/LoggedInNavbar'
+
 describe('E2E Test - Search', ()=> {
     it('Should login into application', () => {
-        browser.url('http://zero.webappsecurity.com/')
+        App.openLoginPage()
         browser.maximizeWindow()
-        let signinBtn = $('#signin_button')
-        signinBtn.waitForExist()
-        signinBtn.click()
-        let signinForm = $('#login_form')
-        signinForm.waitForExist()
-        let user= $('#user_login')
-        let password= $('#user_password')
-        let submitBtn = $('input.btn-primary')
-        user.setValue('username')
-        password.setValue('password')
-        submitBtn.click()
-        let navBar = $('ul.nav-tabs')
-        navBar.waitForExist()
-        expect(navBar).toBeVisibleInViewport()
+        LoginPage.login('username', 'password')
+        assert.equal(true, NavBar.isLoggedInUserNavbarVisible())
     })
     it('Should make currency exchange', () => {
-        let paybillsMenu = $('=Pay Bills')
-        paybillsMenu.waitForExist()
-        paybillsMenu.click()
-        let foreignCurrencySubmenu = $('=Purchase Foreign Currency')
-        foreignCurrencySubmenu.waitForExist()
-        foreignCurrencySubmenu.click()
-        let currencySelect = $('#pc_currency')
-        currencySelect.waitForExist()
-        currencySelect.selectByAttribute('value', 'EUR')
-        let amountInput = $('#pc_amount')
-        amountInput.setValue('200')
-        let USDollarRadioButton = $('#pc_inDollars_true')
-        USDollarRadioButton.click()
-        let purchaseButton = $('#purchase_cash')
-        purchaseButton.click()
-        let message = $('#alert_container')
-        message.waitForExist()
+        LoggedInNavbar.clickPaybillsTab()
+        LoggedInNavbar.clickPurchaseForeignCurrencyTab()
+        PaybillsPage.selectCurrencyDropdown('value','EUR')
+        PaybillsPage.fillAmount('300')
+        PaybillsPage.clickDollarRadioButton()
+        PaybillsPage.clickPurchaseButton()
+        PaybillsPage.isResultMessageVisible()
+        let message = PaybillsPage.resultContainer
         expect(message).toHaveText('×\nForeign currency cash was successfully purchased.')
         // assert.equal(message.getText().trim(), '×\nForeign currency cash was successfully purchased.')
     })

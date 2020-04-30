@@ -1,38 +1,28 @@
-import LoginPage from '../pages_objects/pages/login.page'
-import App from '../pages_objects/App'
+import App from '../page_objects/App'
+import LoginPage from '../page_objects/pages/LoginPage'
+import Navbar from '../pages_objects/components/Navbar'
 
 describe('E2E Tests- Login logout flow', ()=>{
     it('Should not login with invalid credentials', ()=>{
         App.openHomepage()
-        let signinBtn = $('#signin_button')
-        signinBtn.waitForExist()
-        signinBtn.click()
+        browser.maximizeWindow()
+        Navbar.clickSignIn()
         LoginPage.isFormVisible()
         LoginPage.fillForm('invalid','invalid')
         LoginPage.submitForm()
-        let errorTxt = $('div.alert-error')
-        expect(errorTxt).toHaveText('Login and/or password are wrong.')
+        let message = LoginPage.getError()
+        expect(message).toHaveText('Login and/or password are wrong.')
     })
     it('Should login with valid credentials', ()=>{
         App.openHomepage()
-        let signinBtn = $('#signin_button')
-        signinBtn.waitForExist()
-        signinBtn.click()
+        Navbar.clickSignIn()
         LoginPage.isFormVisible()
         LoginPage.fillForm('username','password')
         LoginPage.submitForm()
-        let navBar = $('ul.nav-tabs')
-        navBar.waitForExist()
-        expect(navBar).toBeVisibleInViewport()
+        assert.equal(true, Navbar.isLoggedInUserNavbarVisible())
     })
     it('Should logout from application', ()=>{
-        let iconUser = $('.icon-user')
-        iconUser.waitForExist()
-        iconUser.click()
-        let logoutLink = $('#logout_link')
-        logoutLink.waitForExist()
-        logoutLink.click()
-        let navBar = $('#pages-nav')
-        expect(navBar).toBeVisibleInViewport()
+        App.logout()
+        assert.equal(true, Navbar.isSigninButtonVisible())
     })
 })

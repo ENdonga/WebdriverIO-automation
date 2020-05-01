@@ -6,7 +6,6 @@ import NavBar from '../page_objects/components/Navbar'
 describe('E2E Test - Help Tests', ()=>{
     it('Should login into application', () => {
         App.openLoginPage()
-        browser.maximizeWindow()
         LoginPage.login('username', 'password')
         assert.equal(true, NavBar.isLoggedInUserNavbarVisible())
     })

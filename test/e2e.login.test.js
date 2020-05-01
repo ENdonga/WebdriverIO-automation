@@ -5,7 +5,6 @@ import Navbar from '../pages_objects/components/Navbar'
 describe('E2E Tests- Login logout flow', ()=>{
     it('Should not login with invalid credentials', ()=>{
         App.openHomepage()
-        browser.maximizeWindow()
         Navbar.clickSignIn()
         LoginPage.isFormVisible()
         LoginPage.fillForm('invalid','invalid')

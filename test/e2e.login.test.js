@@ -1,6 +1,6 @@
 import App from '../page_objects/App'
 import LoginPage from '../page_objects/pages/LoginPage'
-import Navbar from '../pages_objects/components/Navbar'
+import Navbar from '../page_objects/components/Navbar'
 
 describe('E2E Tests- Login logout flow', ()=>{
     it('Should not login with invalid credentials', ()=>{

@@ -15,5 +15,4 @@ class App {
         browser.maximizeWindow()
     }
 }
-// export default new App()
 module.exports = new App()

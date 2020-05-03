@@ -41,5 +41,8 @@ class Navbar extends Base {
         this.searchBox.setValue(text)
         browser.keys('Enter')
     }
+    clickAndSignIn(){
+        //TODO
+    }
 }
 export default new Navbar()

@@ -1,4 +1,3 @@
-// import App from '../pages_objects/App'
 const app = require('../page_objects/App')
 import FeedbackPage from '../page_objects/pages/FeedbackPage'
 

@@ -1,3 +1,6 @@
+/**
+ * @author Edwin Ndonga
+ */
 import App from '../page_objects/App'
 import LoginPage from '../page_objects/pages/LoginPage'
 import Navbar from '../page_objects/components/Navbar'
